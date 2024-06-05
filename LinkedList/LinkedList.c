@@ -11,6 +11,8 @@ struct node{
 
 void display(struct node *);
 void count_nodes(struct node *);
+void add_at_end(struct node *,int);
+struct node *add_at_beg(struct node *,int);
 
 
 int main(){
@@ -30,8 +32,10 @@ int main(){
   current -> link = NULL;
   head -> link -> link = current;
 
-  display(head);
   count_nodes(head);
+  add_at_end(head,25);
+  head = add_at_beg(head,7);
+  display(head);
 
   return 0;
 }
@@ -42,16 +46,13 @@ int main(){
 void display(struct node *head){
   struct node *ptr;
   ptr = head;
-
   if(ptr == NULL){
     printf("Linked List is Empty");
   }
 
   while (ptr != NULL)
   {
-    printf("Data : %d ",ptr -> data);
-    printf("Address : %d\n",ptr -> link);
-
+    printf("%d ",ptr -> data);
     ptr = ptr -> link;
   }
 }
@@ -71,5 +72,33 @@ void count_nodes(struct node *head){
     count++;
     ptr = ptr -> link;
   }
-  printf("Total Nodes : %d",count);
+  printf("\nTotal Nodes : %d\n",count);
+}
+
+
+
+// Insert At The End
+void add_at_end(struct node *head,int data){
+  struct node *ptr,*temp;
+
+  ptr = head;
+  temp = (struct node *)malloc(sizeof(struct node));
+  temp -> data = data;
+  temp -> link = NULL;
+
+  while(ptr -> link != NULL){
+    ptr = ptr -> link;
+  }
+  ptr -> link = temp;
+}
+
+
+
+// Insert At The Beginning
+struct node *add_at_beg(struct node *head,int data){
+  struct node *ptr = (struct node *)malloc(sizeof(struct node));
+  ptr -> data = data;
+  ptr -> link = head;
+  head = ptr;
+  return head;
 }
