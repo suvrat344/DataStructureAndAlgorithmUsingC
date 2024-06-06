@@ -12,7 +12,7 @@ struct node{
 void display(struct node *);
 void count_nodes(struct node *);
 void add_at_end(struct node *,int);
-struct node *add_at_beg(struct node *,int);
+void add_at_beg(struct node **,int);
 
 
 int main(){
@@ -34,7 +34,7 @@ int main(){
 
   count_nodes(head);
   add_at_end(head,25);
-  head = add_at_beg(head,7);
+  add_at_beg(&head,7);
   display(head);
 
   return 0;
@@ -95,10 +95,20 @@ void add_at_end(struct node *head,int data){
 
 
 // Insert At The Beginning
-struct node *add_at_beg(struct node *head,int data){
+// Method1
+// struct node *add_at_beg(struct node *head,int data){
+//   struct node *ptr = (struct node *)malloc(sizeof(struct node));
+//   ptr -> data = data;
+//   ptr -> link = head;
+//   head = ptr;
+//   return head;
+// }
+
+// Insert At The Beginning
+// Method2
+void add_at_beg(struct node **head,int data){
   struct node *ptr = (struct node *)malloc(sizeof(struct node));
   ptr -> data = data;
-  ptr -> link = head;
-  head = ptr;
-  return head;
+  ptr -> link = *head;
+  *head = ptr;
 }
